@@ -28,6 +28,9 @@ from bs4 import BeautifulSoup
 import sys
 import os
 import locale
+import re
+import sqlite3
+import xml.dom.minidom as minidom
 #os.environ["PYTHONIOENCODING"] = "utf-8"
 #myLocale=locale.setlocale(category=locale.LC_ALL, locale="en_GB.UTF-8")
 try:
@@ -66,7 +69,30 @@ try:
                 if(Tab[i][j][k]!='\n'):
                     v=v+Tab[i][j][k]
             Tab[i][j]=v
-    print(Tab)
+    #print(Tab)
+    conn=sqlite3.connect('kosm_ob_ty.db')
+    cur=conn.cursor()
+    cur.execute("CREATE TABLE plan (kod_plan INTEGER NOT NULL Primary Key,name VARCHAR2(50), mass_MJ VARCHAR2(50), radius_RJ VARCHAR2(50), Period_days VARCHAR2(50), semi_major_axis_AU VARCHAR2(50), temp_K VARCHAR2(50), discovery_method VARCHAR2(50), distance_ly VARCHAR2(50), host_star_mass_M_Sun VARCHAR2(50), host_star_temp_K VARCHAR2(50), remarks VARCHAR2(50))")
+    for i in range(1,r):
+        qu="INSERT INTO plan VALUES("+str(i)+","
+        for j in range(c):
+            qu=qu+"'"+Tab[i][j]+"',"
+        qu=qu+")"
+        qu1=""
+        for j in range(len(qu)):
+            if(j!=len(qu)-2):
+                qu1=qu1+qu[j]
+        qu=qu1
+        cur.execute(qu)
+    cur.execute("Select * from plan")
+    rows1=cur.fetchall()
+    for i in rows1:
+        print(i)
+    conn.commit()
+    cur.close()
+    conn.close()
+        #print(qu)
+    #cur.execute("INSERT INTO gal VALUES(1, 'Mlechnyy_Put','','0','6*10^42 kg')")
     #for child in bsobj.find("table",{"class":"wikitable plainrowheaders sortable jquery-tablesorter"}).children:
         #print(child)
     #title=bsobj.body.table
