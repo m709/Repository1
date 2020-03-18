@@ -241,21 +241,21 @@ exit;
 mysqli_select_db($link,$dbName);
 $query="";
 if(($token1==0)&&($token2==0)&&($token4==0)&&($token3==0)){$query="SELECT * FROM $userstable";}
-if(($token1==0)&&($token2==0)&&($token4==0)&&($token3==1)){$query="";} //SELECT * FROM zvyozdy WHERE NOT EXISTS(SELECT * FROM planety WHERE zvyozdy.kod_zvezdy=planety.kod_zvezdy)
+if(($token1==0)&&($token2==0)&&($token4==0)&&($token3==1)){if($u3=="Да"){$query="SELECT * FROM zvyozdy,(SELECT DISTINCT kod_zvezdy FROM planety)A WHERE A.kod_zvezdy=zvyozdy.kod_zvezdy";} else{$query="SELECT * FROM zvyozdy WHERE NOT EXISTS(SELECT * FROM planety WHERE zvyozdy.kod_zvezdy=planety.kod_zvezdy)";}}
 if(($token1==0)&&($token2==0)&&($token4==1)&&($token3==0)){$query="SELECT * FROM $userstable WHERE temperature>=$u4 and temperature<=$v4";}
-if(($token1==0)&&($token2==0)&&($token4==1)&&($token3==1)){$query="";} //SELECT * FROM zvyozdy,(SELECT DISTINCT kod_zvezdy FROM planety)A WHERE A.kod_zvezdy=zvyozdy.kod_zvezdy
-if(($token1==0)&&($token2==1)&&($token4==0)&&($token3==0)){$query="SELECT * FROM $userstable WHERE type=$u2";}
-if(($token1==0)&&($token2==1)&&($token4==0)&&($token3==1)){$query="";}
-if(($token1==0)&&($token2==1)&&($token4==1)&&($token3==0)){$query="SELECT * FROM $userstable WHERE type=$u2 and temperature>=$u4 and temperature<=$v4";}
-if(($token1==0)&&($token2==1)&&($token4==1)&&($token3==1)){$query="";}
+if(($token1==0)&&($token2==0)&&($token4==1)&&($token3==1)){if($u3=="Да"){$query="SELECT * FROM zvyozdy,(SELECT DISTINCT kod_zvezdy FROM planety)A WHERE A.kod_zvezdy=zvyozdy.kod_zvezdy AND zvyozdy.temperature>=$u4 AND zvyozdy.temperature<=$v4";} else{$query="SELECT * FROM zvyozdy WHERE NOT EXISTS(SELECT * FROM planety WHERE zvyozdy.kod_zvezdy=planety.kod_zvezdy) AND zvyozdy.temperature>=$u4 AND zvyozdy.temperature<=$v4";}}
+if(($token1==0)&&($token2==1)&&($token4==0)&&($token3==0)){$query="SELECT * FROM $userstable WHERE type='$u2'";}
+if(($token1==0)&&($token2==1)&&($token4==0)&&($token3==1)){if($u3=="Да"){$query="SELECT * FROM zvyozdy,(SELECT DISTINCT kod_zvezdy FROM planety)A WHERE A.kod_zvezdy=zvyozdy.kod_zvezdy AND zvyozdy.type='$u2'";} else{$query="SELECT * FROM zvyozdy WHERE NOT EXISTS(SELECT * FROM planety WHERE zvyozdy.kod_zvezdy=planety.kod_zvezdy) AND zvyozdy.type='$u2'";}}
+if(($token1==0)&&($token2==1)&&($token4==1)&&($token3==0)){$query="SELECT * FROM $userstable WHERE type='$u2' and temperature>=$u4 and temperature<=$v4";}
+if(($token1==0)&&($token2==1)&&($token4==1)&&($token3==1)){if($u3=="Да"){$query="SELECT * FROM zvyozdy,(SELECT DISTINCT kod_zvezdy FROM planety)A WHERE A.kod_zvezdy=zvyozdy.kod_zvezdy AND zvyozdy.type='$u2' AND zvyozdy.temperature>=$u4 AND zvyozdy.temperature<=$v4";} else{$query="SELECT * FROM zvyozdy WHERE NOT EXISTS(SELECT * FROM planety WHERE zvyozdy.kod_zvezdy=planety.kod_zvezdy) AND zvyozdy.type='$u2' AND zvyozdy.temperature>=$u4 AND zvyozdy.temperature<=$v4";}}
 if(($token1==1)&&($token2==0)&&($token4==0)&&($token3==0)){$query="SELECT * FROM $userstable WHERE distance>=$u and distance<=$v";}
-if(($token1==1)&&($token2==0)&&($token4==0)&&($token3==1)){$query="";}
+if(($token1==1)&&($token2==0)&&($token4==0)&&($token3==1)){if($u3=="Да"){$query="SELECT * FROM zvyozdy,(SELECT DISTINCT kod_zvezdy FROM planety)A WHERE A.kod_zvezdy=zvyozdy.kod_zvezdy AND zvyozdy.distance>=$u AND zvyozdy.distance<=$v";} else{$query="SELECT * FROM zvyozdy WHERE NOT EXISTS(SELECT * FROM planety WHERE zvyozdy.kod_zvezdy=planety.kod_zvezdy) AND zvyozdy.distance>=$u AND zvyozdy.distance<=$v";}}
 if(($token1==1)&&($token2==0)&&($token4==1)&&($token3==0)){$query="SELECT * FROM $userstable WHERE distance>=$u and distance<=$v and temperature>=$u4 and temperature<=$v4";}
-if(($token1==1)&&($token2==0)&&($token4==1)&&($token3==1)){$query="";}
-if(($token1==1)&&($token2==1)&&($token4==0)&&($token3==0)){$query="SELECT * FROM $userstable WHERE distance>=$u and distance<=$v and type=$u2";}
-if(($token1==1)&&($token2==1)&&($token4==0)&&($token3==1)){$query="";}
-if(($token1==1)&&($token2==1)&&($token4==1)&&($token3==0)){$query="SELECT * FROM $userstable WHERE distance>=$u and distance<=$v and type=$u2 and temperature>=$u4 and temperature<=$v4";}
-if(($token1==1)&&($token2==1)&&($token4==1)&&($token3==1)){$query="";}
+if(($token1==1)&&($token2==0)&&($token4==1)&&($token3==1)){if($u3=="Да"){$query="SELECT * FROM zvyozdy,(SELECT DISTINCT kod_zvezdy FROM planety)A WHERE A.kod_zvezdy=zvyozdy.kod_zvezdy AND zvyozdy.distance>=$u AND zvyozdy.distance<=$v AND zvyozdy.temperature>=$u4 AND zvyozdy.temperature<=$v4";} else{$query="SELECT * FROM zvyozdy WHERE NOT EXISTS(SELECT * FROM planety WHERE zvyozdy.kod_zvezdy=planety.kod_zvezdy) AND zvyozdy.distance>=$u AND zvyozdy.distance<=$v AND zvyozdy.temperature>=$u4 AND zvyozdy.temperature<=$v4";}}
+if(($token1==1)&&($token2==1)&&($token4==0)&&($token3==0)){$query="SELECT * FROM $userstable WHERE distance>=$u and distance<=$v and type='$u2'";}
+if(($token1==1)&&($token2==1)&&($token4==0)&&($token3==1)){if($u3=="Да"){$query="SELECT * FROM zvyozdy,(SELECT DISTINCT kod_zvezdy FROM planety)A WHERE A.kod_zvezdy=zvyozdy.kod_zvezdy AND zvyozdy.distance>=$u AND zvyozdy.distance<=$v AND zvyozdy.type='$u2'";} else{$query="SELECT * FROM zvyozdy WHERE NOT EXISTS(SELECT * FROM planety WHERE zvyozdy.kod_zvezdy=planety.kod_zvezdy) AND zvyozdy.distance>=$u AND zvyozdy.distance<=$v AND zvyozdy.type='$u2'";}}
+if(($token1==1)&&($token2==1)&&($token4==1)&&($token3==0)){$query="SELECT * FROM $userstable WHERE distance>=$u and distance<=$v and type='$u2' and temperature>=$u4 and temperature<=$v4";}
+if(($token1==1)&&($token2==1)&&($token4==1)&&($token3==1)){if($u3=="Да"){$query="SELECT * FROM zvyozdy,(SELECT DISTINCT kod_zvezdy FROM planety)A WHERE A.kod_zvezdy=zvyozdy.kod_zvezdy AND zvyozdy.distance>=$u AND zvyozdy.distance<=$v AND zvyozdy.temperature>=$u4 AND zvyozdy.temperature<=$v4 AND zvyozdy.type='$u2'";} else{$query="SELECT * FROM zvyozdy WHERE NOT EXISTS(SELECT * FROM planety WHERE zvyozdy.kod_zvezdy=planety.kod_zvezdy) AND zvyozdy.distance>=$u AND zvyozdy.distance<=$v AND zvyozdy.temperature>=$u4 AND zvyozdy.temperature<=$v4 AND zvyozdy.type='$u2'";}}
 if($query!=""){
 $res=mysqli_query($link,$query);
 $number=mysqli_num_rows($res);
@@ -309,10 +309,82 @@ case 'km':
 $u=$u/1000000; $v=$v/1000000;
 break;
 }
-//echo "$un $u $v";
+echo "$un $u $v";
 }
 }
-
+$st2=$_POST['tp']; $token2=1; $u2="";
+//echo "$st2 ";
+switch($st2){
+case 'all':
+$token2=0; break;
+case 'hu':
+$u2="Холодный юпитер"; break;
+case 'gu':
+$u2="Горячий юпитер"; break;
+case 'hn':
+$u2="Холодный нептун"; break;
+case 'gn':
+$u2="Горячий нептун"; break;
+case 'vg':
+$u2="Водный гигант"; break;
+case 'lg':
+$u2="Ледяной гигант"; break;
+case 'sz':
+$u2="Суперземля"; break;
+case 'mez':
+$u2="Мегаземля"; break;
+case 'miz':
+$u2="Миниземля"; break;
+case 'po':
+$u2="Планета-океан"; break;
+}
+//echo "$u2";
+$st3=$_POST['is']; $token3=1; $u3="";
+switch($st3){
+case 'all3':
+$token3=0; break;
+case 'Tr':
+$u3="Да"; break;
+case 'Fa':
+$u3="Нет"; break;
+}
+//echo "$u3";
+$link=mysqli_connect($hostname,$username,$password);
+if(!$link){
+echo "Ошибка: Невозможно установить соединение с MySQL.".PHP_EOL;
+echo "Код ошибки errno: ".mysqli_connect_errno().PHP_EOL;
+echo "Текст ошибки error: ".mysqli_connect_error().PHP_EOL;
+exit;
+} else{
+mysqli_select_db($link,$dbName);
+$query="";
+if(($token1==0)&&($token2==0)&&($token3==0)){$query="SELECT * FROM $userstable";}
+if(($token1==0)&&($token2==0)&&($token3==1)){if($u3=="Да"){$query="SELECT * FROM planety,(SELECT DISTINCT kod_plan FROM sputniki)A WHERE A.kod_plan=planety.kod_plan";} else{$query="SELECT * FROM planety WHERE NOT EXISTS(SELECT * FROM sputniki WHERE planety.kod_plan=sputniki.kod_plan)";}}
+if(($token1==0)&&($token2==1)&&($token3==0)){$query="SELECT * FROM $userstable WHERE type='$u2'";}
+if(($token1==0)&&($token2==1)&&($token3==1)){if($u3=="Да"){$query="SELECT * FROM planety,(SELECT DISTINCT kod_plan FROM sputniki)A WHERE A.kod_plan=planety.kod_plan AND planety.type='$u2'";} else{$query="SELECT * FROM planety WHERE NOT EXISTS(SELECT * FROM sputniki WHERE planety.kod_plan=sputniki.kod_plan) AND planety.type='$u2'";}}
+if(($token1==1)&&($token2==0)&&($token3==0)){$query="SELECT * FROM $userstable WHERE distance>=$u AND distance<=$v";}
+if(($token1==1)&&($token2==0)&&($token3==1)){if($u3=="Да"){$query="SELECT * FROM planety,(SELECT DISTINCT kod_plan FROM sputniki)A WHERE A.kod_plan=planety.kod_plan AND planety.distance>=$u AND planety.distance<=$v";} else{$query="SELECT * FROM planety WHERE NOT EXISTS(SELECT * FROM sputniki WHERE planety.kod_plan=sputniki.kod_plan) AND planety.distance>=$u AND planety.distance<=$v";}}
+if(($token1==1)&&($token2==1)&&($token3==0)){$query="SELECT * FROM $userstable WHERE type='$u2' AND distance>=$u AND distance<=$v";}
+if(($token1==1)&&($token2==1)&&($token3==1)){if($u3=="Да"){$query="SELECT * FROM planety,(SELECT DISTINCT kod_plan FROM sputniki)A WHERE A.kod_plan=planety.kod_plan AND planety.type='$u2' AND planety.distance>=$u AND planety.distance<=$v";} else{$query="SELECT * FROM planety WHERE NOT EXISTS(SELECT * FROM sputniki WHERE planety.kod_plan=sputniki.kod_plan) AND planety.type='$u2' AND planety.distance>=$u AND planety.distance<=$v";}}
+if($query!=""){
+$res=mysqli_query($link,$query);
+$number=mysqli_num_rows($res);
+if($number==0){echo "К сожалению, информации нет.";}
+else{
+echo "Нашлось $number планета(-ы), удовлетворяющих заданным условиям. Это следующие планеты:<br/>";
+$k1=0;
+while ($row=mysqli_fetch_array($res)){
+print_r($row);
+//$di=$row['distance']; $na=$row['name']; $so=$row['sozvezdie'];
+echo "<br/>";
+//$k1=$k1+1;
+//$di1=$di/3.2616; $di2=$di*63241.077; $di3=$di*9460730.4725808; $di4=$di*9460730472580.8;
+//echo "<p>$k1. $na, находящаяся на расстоянии $di световых лет ($di1 пк, $di2 а.е., $di3 млн км, $di4 км) от Земли.</p>";
+//echo "<p>$row</p>";
+}
+}
+} else{echo "Вы, к сожалению, неправильно ввели диапазон расстояний или температур.";}
+}
 } else{
 if($_POST['Submit4']){
 //echo "<p>Вы выбрали спутники.</p>";
