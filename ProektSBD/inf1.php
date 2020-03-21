@@ -309,7 +309,7 @@ case 'km':
 $u=$u/1000000; $v=$v/1000000;
 break;
 }
-echo "$un $u $v";
+//echo "$un $u $v<br/>";
 }
 }
 $st2=$_POST['tp']; $token2=1; $u2="";
@@ -341,7 +341,7 @@ $u2="Планета-океан"; break;
 //echo "$u2";
 $st3=$_POST['is']; $token3=1; $u3="";
 switch($st3){
-case 'all3':
+case 'all2':
 $token3=0; break;
 case 'Tr':
 $u3="Да"; break;
@@ -357,7 +357,7 @@ echo "Текст ошибки error: ".mysqli_connect_error().PHP_EOL;
 exit;
 } else{
 mysqli_select_db($link,$dbName);
-$query="";
+$query=""; //echo "$token1 $token2 $token3</br>";
 if(($token1==0)&&($token2==0)&&($token3==0)){$query="SELECT * FROM $userstable";}
 if(($token1==0)&&($token2==0)&&($token3==1)){if($u3=="Да"){$query="SELECT * FROM planety,(SELECT DISTINCT kod_plan FROM sputniki)A WHERE A.kod_plan=planety.kod_plan";} else{$query="SELECT * FROM planety WHERE NOT EXISTS(SELECT * FROM sputniki WHERE planety.kod_plan=sputniki.kod_plan)";}}
 if(($token1==0)&&($token2==1)&&($token3==0)){$query="SELECT * FROM $userstable WHERE type='$u2'";}
@@ -389,6 +389,95 @@ echo "<br/>";
 if($_POST['Submit4']){
 //echo "<p>Вы выбрали спутники.</p>";
 $userstable="sputniki";
+$st1=$_POST['ra']; $token1=0; $u=""; $v=""; $sch=0;
+if($st1!=""){
+while(($sch<strlen($st1))&&($st1{$sch}>='0')&&($st1{$sch}<='9')){
+$u.=$st1{$sch}; $sch=$sch+1;
+}
+$sch=$sch+2;
+while($sch<strlen($st1)&&($st1{$sch}>='0')&&($st1{$sch}<='9')){
+$v.=$st1{$sch}; $sch=$sch+1;
+}
+if(($u=="")||($v=="")){$token1=2;}
+else{
+$u=(int)$u; $v=(int)$v;
+$token1=1;
+$un=$_POST['ed'];
+switch($un){
+case 'pk':
+$u=$u*30857118509370; $v=$v*30857118509370;
+break;
+case 'ly':
+$u=$u*9460730472580.8; $v=$v*9460730472580.8;
+break;
+case 'au':
+$u=$u*149597870.7; $v=$v*149597870.7;
+break;
+case 'mlnkm':
+$u=$u*1000000; $v=$v*1000000;
+break;
+case 'km':
+$u=$u; $v=$v;
+break;
+}
+//echo "$un $u $v<br/>";
+}
+}
+$st4=$_POST['tez']; $token4=0; $u4=""; $v4=""; $sch4=0;
+if($st4!=""){
+while(($sch4<strlen($st4))&&($st4{$sch4}>='0')&&($st4{$sch4}<='9')){
+$u4.=$st4{$sch4}; $sch4=$sch4+1;
+}
+$sch4=$sch4+2;
+while($sch4<strlen($st4)&&($st4{$sch4}>='0')&&($st4{$sch4}<='9')){
+$v4.=$st4{$sch4}; $sch4=$sch4+1;
+}
+if(($u4=="")||($v4=="")){$token4=2;}
+else{
+$u4=(int)$u4; $v4=(int)$v4;
+$token4=1;
+$un1=$_POST['ed1'];
+switch($un1){
+case 'K':
+$u4=$u4; $v4=$v4; break;
+case 'C':
+$u4=$u4+273; $v4=$v4+273; break;
+}
+//echo "$un1 $u4 $v4";
+}
+}
+$link=mysqli_connect($hostname,$username,$password);
+if(!$link){
+echo "Ошибка: Невозможно установить соединение с MySQL.".PHP_EOL;
+echo "Код ошибки errno: ".mysqli_connect_errno().PHP_EOL;
+echo "Текст ошибки error: ".mysqli_connect_error().PHP_EOL;
+exit;
+} else{
+mysqli_select_db($link,$dbName);
+$query=""; //echo "$token1 $token2 $token3</br>";
+if(($token1==0)&&($token4==0)){$query="SELECT * FROM $userstable";}
+if(($token1==0)&&($token4==1)){$query="SELECT * FROM $userstable WHERE temperature>=$u4 AND temperature<=$v4";}
+if(($token1==1)&&($token4==0)){$query="SELECT * FROM $userstable WHERE distance>=$u AND distance<=$v";}
+if(($token1==1)&&($token4==1)){$query="SELECT * FROM $userstable WHERE distance>=$u AND distance<=$v AND temperature>=$u4 AND temperature<=$v4";}
+if($query!=""){
+$res=mysqli_query($link,$query);
+$number=mysqli_num_rows($res);
+if($number==0){echo "К сожалению, информации нет.";}
+else{
+echo "Нашлось $number спутника(-ов), удовлетворяющих заданным условиям. Это следующие спутники:<br/>";
+$k1=0;
+while ($row=mysqli_fetch_array($res)){
+print_r($row);
+//$di=$row['distance']; $na=$row['name']; $so=$row['sozvezdie'];
+echo "<br/>";
+//$k1=$k1+1;
+//$di1=$di/3.2616; $di2=$di*63241.077; $di3=$di*9460730.4725808; $di4=$di*9460730472580.8;
+//echo "<p>$k1. $na, находящаяся на расстоянии $di световых лет ($di1 пк, $di2 а.е., $di3 млн км, $di4 км) от Земли.</p>";
+//echo "<p>$row</p>";
+}
+}
+} else{echo "Вы, к сожалению, неправильно ввели диапазон расстояний или температур.";}
+}
 } else{
 echo "Данные были отправлены не формой. Отправьте, пожалуйста, данные с помощью <a href='form.php'>формы</a>.";
 }
