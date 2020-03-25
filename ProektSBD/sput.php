@@ -1,18 +1,7 @@
 <html>
 <head>
 <title>Космический сайт</title>
-<style>
-div{
-background: url(2.png);
-margin: -16px;
-}
-p{
-color: #87CEFA;
-}
-a{
-color: #00FF7F;
-}
-</style>
+<link rel='stylesheet' type='text/css' href='stili.css'>
 </head>
 <body>
 <div id="header">
@@ -22,8 +11,7 @@ color: #00FF7F;
 <form action="inf1.php" method="post">
 <fieldset>
 <p>
-<label for="ras">Находятся на расстоянии в диапазоне от a до b выбранных единиц измерения от родительской планеты (введите a..b или ничего не вводите): </label>
-<input type="text" id="rasst" name="ra">
+<label for="ras">Находятся на расстоянии в диапазоне от <input type="text" id="rasst1" name="ra1"> до <input type="text" id="rasst2" name="ra2"> выбранных единиц измерения от родительской планеты: </label>
 <select name="ed" size="1">
 <option value="pk" selected>Парсеки</option>
 <option value="ly">Световые года</option>
@@ -34,8 +22,7 @@ color: #00FF7F;
 <input type="button" value="Проверить правильность ввода" onclick="f2()">
 </p>
 <p>
-<label for="tems">Имеют температуру в диапазоне от a до b выбранных единиц измерения (введите a..b или ничего не вводите): </label>
-<input type="text" id="tz" name="tez">
+<label for="tems">Имеют температуру в диапазоне от <input type="text" id="tz1" name="tez1"> до <input type="text" id="tz2" name="tez2"> выбранных единиц измерения: </label>
 <select name="ed1" size="1">
 <option value="K" selected>Кельвины</option>
 <option value="C">Градусы Цельсия</option>
@@ -49,46 +36,52 @@ color: #00FF7F;
 </form>
 <script>
 function f2(){
-var input=document.getElementById('rasst');
-var s=input.value;
-if(s==""){
-alert("Великолепно! В этом поле ошибок нет.");
+var input1=document.getElementById('rasst1');
+var s1=input1.value;
+var input2=document.getElementById('rasst2');
+var s2=input2.value;
+if((s1=="")&&(s2=="")){
+alert("Великолепно! В этих полях ошибок нет.");
 } else{
-var a=""; var b=""; var x=0;
-while((x<s.length)&&(s[x]!='.')){
-a=a+s[x]; x=x+1;
+var a=""; var x=0;
+while(x<s1.length){
+a=a+s1[x]; x=x+1;
 }
-x=x+2;
-while(x<s.length){
-b=b+s[x]; x=x+1;
+a=Number.parseInt(a);
+var b=""; x=0;
+while(x<s2.length){
+b=b+s2[x]; x=x+1;
 }
-a=Number.parseInt(a); b=Number.parseInt(b);
+b=Number.parseInt(b);
 if((!isNaN(a))&&(!isNaN(b))){
-alert("Великолепно! В этом поле ошибок нет.");
+alert("Великолепно! В этих полях ошибок нет.");
 } else{
-alert("Формат этого поля не соблюдён.");
+alert("Формат этих полей не соблюдён.");
 }
 }
 }
 function f3(){
-var input=document.getElementById('tz');
-var s=input.value;
-if(s==""){
-alert("Великолепно! В этом поле ошибок нет.");
+var input1=document.getElementById('tz1');
+var s1=input1.value;
+var input2=document.getElementById('tz2');
+var s2=input2.value;
+if((s1=="")&&(s2=="")){
+alert("Великолепно! В этих полях ошибок нет.");
 } else{
-var a=""; var b=""; var x=0;
-while((x<s.length)&&(s[x]!='.')){
-a=a+s[x]; x=x+1;
+var a=""; var x=0;
+while(x<s1.length){
+a=a+s1[x]; x=x+1;
 }
-x=x+2;
-while(x<s.length){
-b=b+s[x]; x=x+1;
+a=Number.parseInt(a);
+var b=""; x=0;
+while(x<s2.length){
+b=b+s2[x]; x=x+1;
 }
-a=Number.parseInt(a); b=Number.parseInt(b);
+b=Number.parseInt(b);
 if((!isNaN(a))&&(!isNaN(b))){
-alert("Великолепно! В этом поле ошибок нет.");
+alert("Великолепно! В этих полях ошибок нет.");
 } else{
-alert("Формат этого поля не соблюдён.");
+alert("Формат этих полей не соблюдён.");
 }
 }
 }

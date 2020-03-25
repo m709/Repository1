@@ -21,10 +21,42 @@ header("Location: gal.php");
 exit;
 break;
 case '':
-echo "<p>Вы не выбрали небесные тела, о которых хотите узнать.</p>";
+print("<html>");
+print("<head>");
+print("<title>Космический сайт</title>");
+print("<link rel='stylesheet' type='text/css' href='stili.css'>");
+print("</head>");
+print("<body>");
+print("<div id='header'>");
+print("<p>Вы на космическом сайте.</p>");
+print("</div>");
+print("<div id='content'>");
+print("<p>Вы не выбрали небесные тела, о которых хотите узнать.</p>");
+print("</div>");
+print("<div id='footer'>");
+print("<p>&copy Усов П.Е.</p>");
+print("</div>");
+print("</body>");
+print("</html>");
 break;
 }
 } else{
-echo "Данные были отправлены не формой. Отправьте, пожалуйста, данные с помощью <a href='form.php'>формы</a>.";
+print("<html>");
+print("<head>");
+print("<title>Космический сайт</title>");
+print("<link rel='stylesheet' type='text/css' href='stili.css'>");
+print("</head>");
+print("<body>");
+print("<div id='header'>");
+print("<p>Вы на космическом сайте.</p>");
+print("</div>");
+print("<div id='content'>");
+print("<p>Данные были отправлены не формой. Отправьте, пожалуйста, данные с помощью <a href='form.php'>формы</a>.</p>");
+print("</div>");
+print("<div id='footer'>");
+print("<p>&copy Усов П.Е.</p>");
+print("</div>");
+print("</body>");
+print("</html>");
 }
 ?>

@@ -1,11 +1,21 @@
 <?
 session_start();
+print("<html>");
+print("<head>");
+print("<title>Космический сайт</title>");
+print("<link rel='stylesheet' type='text/css' href='stili.css'>");
+print("</head>");
+print("<body>");
+print("<div id='header'>");
+print("<p>Итак, информация:</p>");
+print("</div>");
+print("<div id='content'>");
 $userstable=""; $hostname="localhost"; $username="root"; $password=""; $dbName="kosm_ob_ty";
 if($_POST['Submit1']){
 //echo "<p>Вы выбрали галактики.</p>";
 $userstable="galaktiki";
-$st1=$_POST['ra']; $token1=0; $u=""; $v=""; $sch=0;
-if($st1!=""){
+$st1=$_POST['ra1']."..".$_POST['ra2']; $token1=0; $u=""; $v=""; $sch=0;
+if($st1!=".."){
 while(($sch<strlen($st1))&&($st1{$sch}>='0')&&($st1{$sch}<='9')){
 $u.=$st1{$sch}; $sch=$sch+1;
 }
@@ -75,8 +85,8 @@ case 'neytr':
 $u3="Нейтронная звезда"; break;
 }
 //echo "$u3";
-$st4=$_POST['tez']; $token4=0; $u4=""; $v4=""; $sch4=0;
-if($st4!=""){
+$st4=$_POST['tez1']."..".$_POST['tez2']; $token4=0; $u4=""; $v4=""; $sch4=0;
+if($st4!=".."){
 while(($sch4<strlen($st4))&&($st4{$sch4}>='0')&&($st4{$sch4}<='9')){
 $u4.=$st4{$sch4}; $sch4=$sch4+1;
 }
@@ -100,9 +110,9 @@ $u4=$u4+273; $v4=$v4+273; break;
 }
 $link=mysqli_connect($hostname,$username,$password);
 if(!$link){
-echo "Ошибка: Невозможно установить соединение с MySQL.".PHP_EOL;
-echo "Код ошибки errno: ".mysqli_connect_errno().PHP_EOL;
-echo "Текст ошибки error: ".mysqli_connect_error().PHP_EOL;
+echo "<p>"; echo "Ошибка: Невозможно установить соединение с MySQL.".PHP_EOL; echo "</p>";
+echo "<p>"; echo "Код ошибки errno: ".mysqli_connect_errno().PHP_EOL; echo "</p>";
+echo "<p>"; echo "Текст ошибки error: ".mysqli_connect_error().PHP_EOL; echo "</p>";
 exit;
 } else{
 mysqli_select_db($link,$dbName);
@@ -126,12 +136,15 @@ if(($token1==1)&&($token2==1)&&($token3==1)&&($token4==1)){$query="SELECT * FROM
 if($query!=""){
 $res=mysqli_query($link,$query);
 $number=mysqli_num_rows($res);
-if($number==0){echo "К сожалению, информации нет.";}
+if($number==0){print("<p>К сожалению, информации нет.</p>");}
 else{
-echo "Нашлось $number галактик(-и), удовлетворяющих заданным условиям. Это следующие галактики:<br/>";
+print("<p>Нашлось $number галактик(-и), удовлетворяющих заданным условиям. Это следующие галактики:</p>");
 $k1=0;
 while ($row=mysqli_fetch_array($res)){
-$di=$row['distance']; $na=$row['name']; $so=$row['sozvezdie']; print_r($row);
+$di=$row['distance']; $na=$row['name']; $so=$row['sozvezdie'];
+print("<p>"); $o=0;
+foreach($row as $key => $value){if($o%2==1){print("<p>$key=$value</p>");} $o=$o+1;}
+print("</p>");
 echo "<br/>";
 $k1=$k1+1;
 $di1=$di/3.2616; $di2=$di*63241.077; $di3=$di*9460730.4725808; $di4=$di*9460730472580.8;
@@ -139,14 +152,14 @@ $di1=$di/3.2616; $di2=$di*63241.077; $di3=$di*9460730.4725808; $di4=$di*94607304
 //echo "<p>$row</p>";
 }
 }
-} else{echo "Вы, к сожалению, неправильно ввели диапазон расстояний или температур.";}
+} else{print("<p>Вы, к сожалению, неправильно ввели диапазон расстояний или температур.</p>");}
 }
 } else{
 if($_POST['Submit2']){
 //echo "<p>Вы выбрали звёзды.</p>";
 $userstable="zvyozdy";
-$st1=$_POST['ra']; $token1=0; $u=""; $v=""; $sch=0;
-if($st1!=""){
+$st1=$_POST['ra1']."..".$_POST['ra2']; $token1=0; $u=""; $v=""; $sch=0;
+if($st1!=".."){
 while(($sch<strlen($st1))&&($st1{$sch}>='0')&&($st1{$sch}<='9')){
 $u.=$st1{$sch}; $sch=$sch+1;
 }
@@ -198,8 +211,8 @@ case 'neytr':
 $u2="Нейтронная звезда"; break;
 }
 //echo "$u2";
-$st4=$_POST['tez']; $token4=0; $u4=""; $v4=""; $sch4=0;
-if($st4!=""){
+$st4=$_POST['tez1']."..".$_POST['tez2']; $token4=0; $u4=""; $v4=""; $sch4=0;
+if($st4!=".."){
 while(($sch4<strlen($st4))&&($st4{$sch4}>='0')&&($st4{$sch4}<='9')){
 $u4.=$st4{$sch4}; $sch4=$sch4+1;
 }
@@ -233,9 +246,9 @@ $u3="Нет"; break;
 //echo "$u3";
 $link=mysqli_connect($hostname,$username,$password);
 if(!$link){
-echo "Ошибка: Невозможно установить соединение с MySQL.".PHP_EOL;
-echo "Код ошибки errno: ".mysqli_connect_errno().PHP_EOL;
-echo "Текст ошибки error: ".mysqli_connect_error().PHP_EOL;
+echo "<p>"; echo "Ошибка: Невозможно установить соединение с MySQL.".PHP_EOL; echo "</p>";
+echo "<p>"; echo "Код ошибки errno: ".mysqli_connect_errno().PHP_EOL; echo "</p>";
+echo "<p>"; echo "Текст ошибки error: ".mysqli_connect_error().PHP_EOL; echo "</p>";
 exit;
 } else{
 mysqli_select_db($link,$dbName);
@@ -259,12 +272,15 @@ if(($token1==1)&&($token2==1)&&($token4==1)&&($token3==1)){if($u3=="Да"){$quer
 if($query!=""){
 $res=mysqli_query($link,$query);
 $number=mysqli_num_rows($res);
-if($number==0){echo "К сожалению, информации нет.";}
+if($number==0){print("<p>К сожалению, информации нет.</p>");}
 else{
-echo "Нашлось $number звезда(-ы), удовлетворяющих заданным условиям. Это следующие звёзды:<br/>";
+print("<p>Нашлось $number звезда(-ы), удовлетворяющих заданным условиям. Это следующие звёзды:</p>");
 $k1=0;
 while ($row=mysqli_fetch_array($res)){
-$di=$row['distance']; $na=$row['name']; $so=$row['sozvezdie']; print_r($row);
+$di=$row['distance']; $na=$row['name']; $so=$row['sozvezdie'];
+print("<p>"); $o=0;
+foreach($row as $key => $value){if($o%2==1){print("<p>$key=$value</p>");} $o=$o+1;}
+print("</p>");
 echo "<br/>";
 $k1=$k1+1;
 $di1=$di/3.2616; $di2=$di*63241.077; $di3=$di*9460730.4725808; $di4=$di*9460730472580.8;
@@ -272,14 +288,14 @@ $di1=$di/3.2616; $di2=$di*63241.077; $di3=$di*9460730.4725808; $di4=$di*94607304
 //echo "<p>$row</p>";
 }
 }
-} else{echo "Вы, к сожалению, неправильно ввели диапазон расстояний или температур.";}
+} else{print("<p>Вы, к сожалению, неправильно ввели диапазон расстояний или температур.</p>");}
 }
 } else{
 if($_POST['Submit3']){
 //echo "<p>Вы выбрали планеты.</p>";
 $userstable="planety";
-$st1=$_POST['ra']; $token1=0; $u=""; $v=""; $sch=0;
-if($st1!=""){
+$st1=$_POST['ra1']."..".$_POST['ra2']; $token1=0; $u=""; $v=""; $sch=0;
+if($st1!=".."){
 while(($sch<strlen($st1))&&($st1{$sch}>='0')&&($st1{$sch}<='9')){
 $u.=$st1{$sch}; $sch=$sch+1;
 }
@@ -351,9 +367,9 @@ $u3="Нет"; break;
 //echo "$u3";
 $link=mysqli_connect($hostname,$username,$password);
 if(!$link){
-echo "Ошибка: Невозможно установить соединение с MySQL.".PHP_EOL;
-echo "Код ошибки errno: ".mysqli_connect_errno().PHP_EOL;
-echo "Текст ошибки error: ".mysqli_connect_error().PHP_EOL;
+echo "<p>"; echo "Ошибка: Невозможно установить соединение с MySQL.".PHP_EOL; echo "</p>";
+echo "<p>"; echo "Код ошибки errno: ".mysqli_connect_errno().PHP_EOL; echo "</p>";
+echo "<p>"; echo "Текст ошибки error: ".mysqli_connect_error().PHP_EOL; echo "</p>";
 exit;
 } else{
 mysqli_select_db($link,$dbName);
@@ -369,12 +385,14 @@ if(($token1==1)&&($token2==1)&&($token3==1)){if($u3=="Да"){$query="SELECT * FR
 if($query!=""){
 $res=mysqli_query($link,$query);
 $number=mysqli_num_rows($res);
-if($number==0){echo "К сожалению, информации нет.";}
+if($number==0){print("<p>К сожалению, информации нет.</p>");}
 else{
-echo "Нашлось $number планета(-ы), удовлетворяющих заданным условиям. Это следующие планеты:<br/>";
+print("<p>Нашлось $number планета(-ы), удовлетворяющих заданным условиям. Это следующие планеты:</p>");
 $k1=0;
 while ($row=mysqli_fetch_array($res)){
-print_r($row);
+print("<p>"); $o=0;
+foreach($row as $key => $value){if($o%2==1){print("<p>$key=$value</p>");} $o=$o+1;}
+print("</p>");
 //$di=$row['distance']; $na=$row['name']; $so=$row['sozvezdie'];
 echo "<br/>";
 //$k1=$k1+1;
@@ -383,14 +401,14 @@ echo "<br/>";
 //echo "<p>$row</p>";
 }
 }
-} else{echo "Вы, к сожалению, неправильно ввели диапазон расстояний или температур.";}
+} else{print("<p>Вы, к сожалению, неправильно ввели диапазон расстояний или температур.</p>");}
 }
 } else{
 if($_POST['Submit4']){
 //echo "<p>Вы выбрали спутники.</p>";
 $userstable="sputniki";
-$st1=$_POST['ra']; $token1=0; $u=""; $v=""; $sch=0;
-if($st1!=""){
+$st1=$_POST['ra1']."..".$_POST['ra2']; $token1=0; $u=""; $v=""; $sch=0;
+if($st1!=".."){
 while(($sch<strlen($st1))&&($st1{$sch}>='0')&&($st1{$sch}<='9')){
 $u.=$st1{$sch}; $sch=$sch+1;
 }
@@ -423,8 +441,8 @@ break;
 //echo "$un $u $v<br/>";
 }
 }
-$st4=$_POST['tez']; $token4=0; $u4=""; $v4=""; $sch4=0;
-if($st4!=""){
+$st4=$_POST['tez1']."..".$_POST['tez2']; $token4=0; $u4=""; $v4=""; $sch4=0;
+if($st4!=".."){
 while(($sch4<strlen($st4))&&($st4{$sch4}>='0')&&($st4{$sch4}<='9')){
 $u4.=$st4{$sch4}; $sch4=$sch4+1;
 }
@@ -448,9 +466,9 @@ $u4=$u4+273; $v4=$v4+273; break;
 }
 $link=mysqli_connect($hostname,$username,$password);
 if(!$link){
-echo "Ошибка: Невозможно установить соединение с MySQL.".PHP_EOL;
-echo "Код ошибки errno: ".mysqli_connect_errno().PHP_EOL;
-echo "Текст ошибки error: ".mysqli_connect_error().PHP_EOL;
+echo "<p>"; echo "Ошибка: Невозможно установить соединение с MySQL.".PHP_EOL; echo "</p>";
+echo "<p>"; echo "Код ошибки errno: ".mysqli_connect_errno().PHP_EOL; echo "</p>";
+echo "<p>"; echo "Текст ошибки error: ".mysqli_connect_error().PHP_EOL; echo "</p>";
 exit;
 } else{
 mysqli_select_db($link,$dbName);
@@ -462,12 +480,14 @@ if(($token1==1)&&($token4==1)){$query="SELECT * FROM $userstable WHERE distance>
 if($query!=""){
 $res=mysqli_query($link,$query);
 $number=mysqli_num_rows($res);
-if($number==0){echo "К сожалению, информации нет.";}
+if($number==0){print("<p>К сожалению, информации нет.</p>");}
 else{
-echo "Нашлось $number спутника(-ов), удовлетворяющих заданным условиям. Это следующие спутники:<br/>";
+print("<p>Нашлось $number спутника(-ов), удовлетворяющих заданным условиям. Это следующие спутники:</p>");
 $k1=0;
 while ($row=mysqli_fetch_array($res)){
-print_r($row);
+print("<p>"); $o=0;
+foreach($row as $key => $value){if($o%2==1){print("<p>$key=$value</p>");} $o=$o+1;}
+print("</p>");
 //$di=$row['distance']; $na=$row['name']; $so=$row['sozvezdie'];
 echo "<br/>";
 //$k1=$k1+1;
@@ -476,12 +496,18 @@ echo "<br/>";
 //echo "<p>$row</p>";
 }
 }
-} else{echo "Вы, к сожалению, неправильно ввели диапазон расстояний или температур.";}
+} else{print("<p>Вы, к сожалению, неправильно ввели диапазон расстояний или температур.</p>");}
 }
 } else{
-echo "Данные были отправлены не формой. Отправьте, пожалуйста, данные с помощью <a href='form.php'>формы</a>.";
+print("<p>Данные были отправлены не формой. Отправьте, пожалуйста, данные с помощью <a href='form.php'>формы</a>.</p>");
 }
 }
 }
 }
+print("</div>");
+print("<div id='footer'>");
+print("<p>&copy Усов П.Е.</p>");
+print("</div>");
+print("</body>");
+print("</html>");
 ?>

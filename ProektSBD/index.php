@@ -1,22 +1,7 @@
 <html>
 <head>
 <title>Космический сайт</title>
-<style>
-<!--html,body{
-height: 100%;
-}-->
-div{
-background: url(2.png);
-margin: -16px;
-<!--height: 100%;-->
-}
-p{
-color: #87CEFA;
-}
-a{
-color: #00FF7F;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="stili.css">
 </head>
 <body>
 <div id="header">
