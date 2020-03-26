@@ -3,7 +3,7 @@
 <title>Космический сайт</title>
 <link rel='stylesheet' type='text/css' href='stili.css'>
 </head>
-<body>
+<body class='grid-container'>
 <div id="header">
 <p>Вы хотите узнать о спутниках, которые обладают следующими свойствами:</p>
 </div>

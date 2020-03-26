@@ -1,15 +1,28 @@
-<!--html,body{
-height: 100%;
-}-->
+body.grid-container{
+display: grid;  
+grid-template-areas: "header"
+                     "content"
+                     "footer";
+grid-template-columns: auto;  
+grid-template-rows: auto; 
+}
 div{
 background: url(2.png);
 margin-left: 0px;
 margin-bottom: -16px;
-<!--height: 100%;-->
 }
 p{
 color: #87CEFA;
 }
 a{
 color: #00FF7F;
+}
+#header{ 
+grid-area: header;
+}  
+#content{ 
+grid-area: content; 
+}  
+#footer{ 
+grid-area: footer; 
 }

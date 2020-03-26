@@ -5,7 +5,7 @@ print("<head>");
 print("<title>Космический сайт</title>");
 print("<link rel='stylesheet' type='text/css' href='stili.css'>");
 print("</head>");
-print("<body>");
+print("<body class='grid-container'>");
 print("<div id='header'>");
 print("<p>Итак, информация:</p>");
 print("</div>");

@@ -3,7 +3,7 @@
 <title>Космический сайт</title>
 <link rel="stylesheet" type="text/css" href="stili.css">
 </head>
-<body>
+<body class='grid-container'>
 <div id="header">
 <p>На этом сайте размещена информация о небесных телах в ближнем и дальнем космосе. Вам предлагается заполнить форму для поиска этой информации.</p>
 <p><a href="index.php">На главную</a></p>
